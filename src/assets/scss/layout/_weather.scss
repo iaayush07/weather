@@ -1,0 +1,44 @@
+.weather-wrapper {
+  height: 75%;
+  width: 400px;
+  border-radius: 20px;
+
+  img {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+  }
+
+  .detail {
+    position: relative;
+    z-index: 1;
+    height: 100%;
+    width: 100%;
+
+    .city {
+      font-size: 20px;
+    }
+
+    .temperature {
+      font-size: 36px;
+      font-weight: 900;
+    }
+  }
+}
+
+.lower-data {
+
+  .data {
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+  }
+
+  .icon {
+    height: 25px;
+  }
+}
