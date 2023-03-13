@@ -5,7 +5,8 @@ import { WeatherRoutingModule } from './weather-routing.module';
 import { WeatherComponent } from './weather.component';
 import { WeatherContainerComponent } from './weather-container/weather-container.component';
 import { WeatherPresentationComponent } from './weather-container/weather-presentation/weather-presentation.component';
-
+import { HttpClientModule } from '@angular/common/http'
+import { ApiService } from './service/api.service';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,11 @@ import { WeatherPresentationComponent } from './weather-container/weather-presen
   ],
   imports: [
     CommonModule,
-    WeatherRoutingModule
+    WeatherRoutingModule,
+    HttpClientModule
+  ],
+  providers: [
+    ApiService
   ]
 })
 export class WeatherModule { }
