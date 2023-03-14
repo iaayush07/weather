@@ -1,20 +1,25 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { Subject } from 'rxjs';
 import { weatherData } from '../../model/weather.model';
 import { ApiService } from '../../service/api.service';
+import { WeatherPresenterService } from '../weather-presenter/weather-presenter.service';
 
 @Component({
   selector: 'app-weather-presentation',
   templateUrl: './weather-presentation.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  providers: [WeatherPresenterService]
   // styleUrls: ['./weather-presentation.component.scss']
 })
 export class WeatherPresentationComponent implements OnInit {
   /**
     * setter for getting data
     */
-  @Input() public set weather(value: weatherData | null) {
+  @Input() public set weather(value: weatherData | null | undefined) {
     if (value) {
       this.weatherData = value;
+      this.name = value.name
+      this.temp = value.main.temp - 273.15;
       console.log(this.weatherData);
     }
   }
@@ -26,14 +31,32 @@ export class WeatherPresentationComponent implements OnInit {
 
   }
   public weatherData!: weatherData;
+  public name: string;
+  public temp: number;
+  public form: FormGroup;
+  @Output() public searchCity: EventEmitter<any>;
 
-  constructor(private weatherApiService: ApiService) {
 
+  constructor(private weatherApiService: ApiService, private weatherPresenterService: WeatherPresenterService) {
+    this.name = '';
+    this.temp = 0;
+    this.form = weatherPresenterService.buildForm();
+    this.searchCity = new EventEmitter();
+  }
+  ngOnInit(): void {
+    // this.weatherApiService.getWeatherdata('surat').subscribe((res: weatherData) => {
+    //   console.log(res);
+    //   this.weatherData = res;
+    // })
+    this.weatherPresenterService.cityForm$.subscribe((res: any) => {
+      console.log(res);
+      this.searchCity.emit(res.cityName);
+    });
   }
 
-
-
-  ngOnInit(): void {
-
+  submit() {
+    this.weatherPresenterService.submitCity(this.form);
+    this.form.reset();
+    // this.weatherData;
   }
 }

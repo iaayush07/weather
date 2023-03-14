@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
 import { weatherData } from '../model/weather.model';
 
@@ -9,7 +9,12 @@ import { weatherData } from '../model/weather.model';
 })
 export class ApiService {
 
+  public city: Subject<any>
+  public city$: Observable<any>
+
   constructor(private _http: HttpClient) {
+    this.city = new Subject();
+    this.city$ = this.city.asObservable();
   }
 
   getWeatherdata(city: string): Observable<weatherData> {

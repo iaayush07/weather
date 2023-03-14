@@ -7,20 +7,24 @@ import { WeatherContainerComponent } from './weather-container/weather-container
 import { WeatherPresentationComponent } from './weather-container/weather-presentation/weather-presentation.component';
 import { HttpClientModule } from '@angular/common/http'
 import { ApiService } from './service/api.service';
+import { ReactiveFormsModule } from '@angular/forms';
+import { TemperatureTransformPipe } from './service/temperature-transform.pipe';
 
 @NgModule({
   declarations: [
     WeatherComponent,
     WeatherContainerComponent,
-    WeatherPresentationComponent
+    WeatherPresentationComponent,
+    TemperatureTransformPipe
   ],
   imports: [
     CommonModule,
     WeatherRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [
-    ApiService
+    ApiService,
   ]
 })
 export class WeatherModule { }

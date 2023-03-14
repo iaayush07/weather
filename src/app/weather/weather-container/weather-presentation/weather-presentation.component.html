@@ -1,12 +1,17 @@
-<div class="h-100 bg-primary d-flex justify-content-center align-items-center">
-  <div class="weather-wrapper bg-secondary">
+<div class="h-100 bg-primary d-flex flex-column justify-content-center align-items-center">
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <input type="text" placeholder="Search City" class="p-3 mb-4 " formControlName="cityName">
+  </form>
+  <div class=" weather-wrapper bg-secondary shadow-lg">
     <div class="upper-data h-50 position-relative">
-      <img src="../../../../assets/hot.jpg" alt="" class="d-none">
-      <img src="../../../../assets/cold.jpg" alt="">
+      <!-- {{weather.main!.temp | json}} -->
+      <img src="../../../../assets/hot.jpg" alt="" *ngIf="weather?.main!.temp  >= 288">
+      <img src="../../../../assets/cold.jpg" alt="" *ngIf="weather?.main!.temp < 288">
       <div class="detail d-flex flex-column justify-content-center align-items-center">
-        <!-- <div class="text-white city">{{weatherData.name}}</div> -->
-        <div>{{weather?.name }}</div>
-        <div class="text-white temperature">30°c</div>
+        <div class="text-white city">{{weather?.name}}</div>
+        <div class="text-white temperature">{{weather?.main!.temp | temperatureTransform : 'C' | number : '1.0-0' }}°c
+        </div>
+        <!-- °c -->
       </div>
     </div>
     <div class="lower-data d-flex flex-column h-50 p-4">
@@ -21,7 +26,7 @@
               <div>Min</div>
             </div>
             <div>
-              30°c
+              {{weather?.main!.temp_min | temperatureTransform : 'C' | number : '1.0-0'}}°c
             </div>
           </div>
           <div class="col-6 d-flex">
@@ -32,7 +37,7 @@
               <div>Max</div>
             </div>
             <div>
-              30°c
+              {{weather?.main!.temp_max | temperatureTransform : 'C' | number : '1.0-0'}}°c
             </div>
           </div>
         </div>
@@ -42,10 +47,10 @@
               <div>
                 <span class="icon fa-solid fa-temperature-low"></span>
               </div>
-              <div>Min</div>
+              <div>Humidity</div>
             </div>
             <div>
-              30°c
+              {{weather?.main!.humidity}}%
             </div>
           </div>
           <div class="col-6 d-flex">
@@ -56,7 +61,7 @@
               <div>Wind</div>
             </div>
             <div>
-              30°c
+              {{weather?.wind!.speed}}
               <span class="d-block">km/h</span>
             </div>
           </div>

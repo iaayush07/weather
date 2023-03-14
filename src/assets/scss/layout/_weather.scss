@@ -42,3 +42,12 @@
     height: 25px;
   }
 }
+
+form {
+  input {
+    outline: none;
+    border: none;
+    border-radius: 20px;
+    background-color: $secondary;
+  }
+}

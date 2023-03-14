@@ -1,1 +1,2 @@
-<app-weather-presentation [weather]="weatherData$ | async"></app-weather-presentation>
+<app-weather-presentation [weather]="weatherData$ | async "
+  (searchCity)="searchCity($event)"></app-weather-presentation>
