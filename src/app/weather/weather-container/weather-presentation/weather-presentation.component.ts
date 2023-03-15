@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { AbstractControl, FormGroup } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { weatherData } from '../../model/weather.model';
 import { ApiService } from '../../service/api.service';
@@ -52,6 +52,10 @@ export class WeatherPresentationComponent implements OnInit {
       console.log(res);
       this.searchCity.emit(res.cityName);
     });
+  }
+  // geter function
+  get validator(): { [key: string]: AbstractControl<any> } {
+    return this.form.controls;
   }
 
   submit() {
