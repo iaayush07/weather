@@ -20,6 +20,4 @@ export class TemperatureTransformPipe implements PipeTransform {
     }
     return 0;
   }
-
-
 }
